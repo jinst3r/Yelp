@@ -18,6 +18,7 @@
 		22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */; };
 		D20D10021B07DF9000172D23 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20D10011B07DF9000172D23 /* SwitchCell.swift */; };
 		D20D10041B07E3D700172D23 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20D10031B07E3D700172D23 /* FiltersViewController.swift */; };
+		D278CD371B08019900D45C70 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281ADCF1B01DEDA00FDF816 /* BusinessCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D278CD371B08019900D45C70 /* BusinessCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				D20D10041B07E3D700172D23 /* FiltersViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
