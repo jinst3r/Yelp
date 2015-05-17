@@ -130,6 +130,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filtersBarButton" destination="vWr-k8-hpg" id="x07-X9-kkA"/>
                         <outlet property="tableView" destination="oSj-qP-Ggu" id="fi2-fv-a4B"/>
                     </connections>
                 </viewController>
@@ -162,7 +163,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q5r-CR-Gnq">
                                                     <rect key="frame" x="14" y="42" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofE-VY-dnc">
@@ -210,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1TF-7z-w2X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2255" y="338"/>
+            <point key="canvasLocation" x="2291" y="338"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Oid-dh-T9o">
@@ -228,7 +229,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDQ-sB-nLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="338"/>
+            <point key="canvasLocation" x="1086" y="338"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VDM-cT-v7C">
@@ -246,7 +247,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chi-B3-hY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1868" y="338"/>
+            <point key="canvasLocation" x="1886" y="338"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -9,7 +9,10 @@
 import UIKit
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate {
-
+    var searchBar: UISearchBar!
+    var searchSettings = SearchSettings()
+    
+    @IBOutlet weak var filtersBarButton: UIBarButtonItem!
     var businesses: [Business]!
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,24 +25,17 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tableView.reloadData()
-            
-            for business in businesses {
-                println(business.name!)
-                println(business.address!)
-            }
-        })
-        
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            
-            for business in businesses {
-                println(business.name!)
-                println(business.address!)
-            }
-        }        
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search"
+//        searchBar.searchBarStyle = UISearchBarStyle.Minimal
+//        searchBar.tintColor = UIColor.whiteColor()
+        navigationItem.titleView = searchBar
+//        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Helvetica Neue", size: 16)!], forState: UIControlState.Normal)
+
+        searchSettings.searchString = "Thai"
+        doSearchBasic()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,5 +75,59 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             self.businesses = businesses
             self.tableView.reloadData()
         }
+    }
+    
+    private func doSearchBasic() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        Business.searchWithTerm(searchSettings.searchString!, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+            
+            for business in businesses {
+                println(business.name!)
+                println(business.address!)
+            }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+        })
+
+        // error mode?
+    }
+    
+    private func doSearchAdvanced() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+                    self.businesses = businesses
+                    self.tableView.reloadData()
+        
+                    for business in businesses {
+                        println(business.name!)
+                        println(business.address!)
+                    }
+                }
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
+    }
+    
+}
+
+extension BusinessesViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(true, animated: true)
+        return true;
+    }
+    
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(false, animated: true)
+        return true;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchSettings.searchString = searchBar.text
+        searchBar.resignFirstResponder()
+        doSearchBasic()
     }
 }

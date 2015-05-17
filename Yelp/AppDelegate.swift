@@ -15,7 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let themeColor = UIColor(red: 186.0/255.0, green: 12.0/255.0, blue: 2.0/255.0, alpha: 1.0)
+        
+        UINavigationBar.appearance().barTintColor = themeColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        // remember to turn off "View controller-based status..." to NO in info.plist
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        // for launch screen: change Status bar style to UIStatusBarStyleLightContent
+        
         return true
     }
 
