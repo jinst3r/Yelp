@@ -10,15 +10,13 @@ import Foundation
 
 class SearchSettings {
     var searchString: String?
-    var minStars = 0
-    var deals: Bool?
     var sortArray: [YelpSortMode?] = [.BestMatched, .Distance, .HighestRated]
-
-    var OfferingADeal = true
+    var OfferingADeal: Bool?
 //    var Distance: String?
 //    var SortBy: YelpSortMode?
-    var Distance = true
-    var SortBy = true
+    var Distance: Int?
+    var SortBy: Int?
+//    var categories: [String?] = ["asian"]
 
     
     init() {

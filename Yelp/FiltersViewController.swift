@@ -21,10 +21,11 @@ enum FiltersRowIdentifier : String {
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
     weak var delegate: FiltersViewControllerDelegate?
     
     let tableStructure: [[FiltersRowIdentifier]] = [[.OfferingADeal], [.Distance], [.SortBy]]
-    var filterValues: [FiltersRowIdentifier : Bool] = [:]
+    var filterValues: [FiltersRowIdentifier : AnyObject] = [:]
 
     var currentFilters: SearchSettings! {
         didSet {
@@ -37,9 +38,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func filtersFromTableData() -> SearchSettings {
         let ret = SearchSettings()
-        ret.OfferingADeal = filterValues[.OfferingADeal] ?? ret.OfferingADeal
-        ret.Distance = filterValues[.Distance] ?? ret.Distance
-        ret.SortBy = filterValues[.SortBy] ?? ret.SortBy
+        ret.OfferingADeal = filterValues[.OfferingADeal] as? Bool
+        ret.Distance = filterValues[.Distance] as? Int
+        ret.SortBy = filterValues[.SortBy] as? Int
         return ret
     }
     
@@ -54,7 +55,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        // trying to get rid of the white inset in the cell separator
+        self.tableView.layoutMargins = UIEdgeInsetsZero
+        
     }
+    
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return tableStructure.count
@@ -103,7 +109,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
         let filterIdentifier = tableStructure[indexPath.section][indexPath.row]
         cell.filterRowIdentifier = filterIdentifier
-        cell.onSwitch.on = filterValues[filterIdentifier]!
+//        cell.onSwitch.on = filterValues[filterIdentifier]!
         
 //        cell.switchLabel.text = categories[indexPath.row]["name"]
         cell.delegate = self
@@ -119,6 +125,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         // how does "value" have a value
     }
     
+    // should get rid of this?
     func yelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code" : "afghani"],
         ["name" : "Chinese", "code" : "chinese"]

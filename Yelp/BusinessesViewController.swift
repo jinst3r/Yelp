@@ -35,6 +35,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 //        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Helvetica Neue", size: 16)!], forState: UIControlState.Normal)
 
         searchSettings.searchString = "Thai"
+        
+        // trying to get rid of the white inset in the cell separator
+        self.tableView.layoutMargins = UIEdgeInsetsZero
+        
         doSearchBasic()
     }
 
@@ -55,7 +59,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCellWithIdentifier("BusinessCell", forIndexPath: indexPath) as! BusinessCell
 
         cell.business = businesses[indexPath.row]
-        
+
         return cell
     }
     
@@ -95,7 +99,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     private func doSearchAdvanced() {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        Business.searchWithTerm("Restaurants", sort: searchSettings.sortArray[0], categories: ["asianfusion", "burgers"], deals: searchSettings.deals) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: searchSettings.sortArray[searchSettings.SortBy!], categories: ["asianfusion", "burgers"], deals: searchSettings.OfferingADeal) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         
@@ -132,3 +136,5 @@ extension BusinessesViewController: UISearchBarDelegate {
         doSearchAdvanced()
     }
 }
+
+
