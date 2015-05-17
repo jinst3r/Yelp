@@ -20,6 +20,9 @@ enum FiltersRowIdentifier : String {
 
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
 
+    var arrayForBool : NSMutableArray = NSMutableArray()
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     weak var delegate: FiltersViewControllerDelegate?
@@ -50,6 +53,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        arrayForBool = ["0","0"]
+        
         currentFilters = currentFilters ?? SearchSettings()
 //        categories = yelpCategories()
         
@@ -124,6 +129,26 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         switchStates[indexPath.row] = value
         // how does "value" have a value
     }
+    
+    // inspired by https://github.com/fawazbabu/Accordion_Menu
+//    func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
+//        println("tapping! holler")
+//        println(recognizer.view?.tag)
+//        
+//        var indexPath: NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
+//        if (indexPath.row == 0) {
+//            var collapsed = arrayForBool.objectAtIndex(indexPath.section).boolValue
+//            collapsed = !collapsed;
+//            
+//            arrayForBool.replaceObjectAtIndex(indexPath.section, withObject: collapsed)
+//
+//            //reload specific section animated
+//            var range = NSMakeRange(indexPath.section, 1)
+//            var sectionToReload = NSIndexSet(indexesInRange: range)
+//            self.tableView .reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
+//            
+//        }
+//    }
     
     // should get rid of this?
     func yelpCategories() -> [[String:String]] {

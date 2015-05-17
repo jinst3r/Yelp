@@ -99,7 +99,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     private func doSearchAdvanced() {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        Business.searchWithTerm("Restaurants", sort: searchSettings.sortArray[searchSettings.SortBy!], categories: ["asianfusion", "burgers"], deals: searchSettings.OfferingADeal) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm(searchSettings.searchString!, sort: searchSettings.sortArray[searchSettings.SortBy!], categories: searchSettings.categories, deals: searchSettings.OfferingADeal) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         

@@ -15,8 +15,8 @@ class SearchSettings {
 //    var Distance: String?
 //    var SortBy: YelpSortMode?
     var Distance: Int?
-    var SortBy: Int?
-//    var categories: [String?] = ["asian"]
+    var SortBy: Int? = 2
+    var categories: [String]?
 
     
     init() {
