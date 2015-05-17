@@ -36,13 +36,13 @@ class BusinessCell: UITableViewCell {
         thumbImageView.layer.cornerRadius = 3
         thumbImageView.clipsToBounds = true
 
-        nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
-        addressLabel.preferredMaxLayoutWidth = addressLabel.frame.size.width
+//        nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
+//        addressLabel.preferredMaxLayoutWidth = addressLabel.frame.size.width
 
-//        dispatch_async(dispatch_get_main_queue()) {
-//            self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width
-//            self.addressLabel.preferredMaxLayoutWidth = self.addressLabel.frame.size.width
-//        }
+        dispatch_async(dispatch_get_main_queue()) {
+            self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width
+            self.addressLabel.preferredMaxLayoutWidth = self.addressLabel.frame.size.width
+        }
     }
     
     override func layoutSubviews() {

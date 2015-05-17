@@ -95,15 +95,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     private func doSearchAdvanced() {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-                    self.businesses = businesses
-                    self.tableView.reloadData()
+        Business.searchWithTerm("Restaurants", sort: searchSettings.sortArray[0], categories: ["asianfusion", "burgers"], deals: searchSettings.deals) { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
         
-                    for business in businesses {
-                        println(business.name!)
-                        println(business.address!)
-                    }
-                }
+            for business in businesses {
+                println(business.name!)
+                println(business.address!)
+            }
+        }
+        
         MBProgressHUD.hideHUDForView(self.view, animated: true)
     }
     
@@ -128,6 +129,6 @@ extension BusinessesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchSettings.searchString = searchBar.text
         searchBar.resignFirstResponder()
-        doSearchBasic()
+        doSearchAdvanced()
     }
 }
