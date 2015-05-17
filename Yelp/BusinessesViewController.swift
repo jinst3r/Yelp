@@ -32,12 +32,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 //        searchBar.searchBarStyle = UISearchBarStyle.Minimal
 //        searchBar.tintColor = UIColor.whiteColor()
         navigationItem.titleView = searchBar
+        navigationItem.leftBarButtonItem?.image = UIImage(named: "list-fat-7")
 //        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Helvetica Neue", size: 16)!], forState: UIControlState.Normal)
 
         searchSettings.searchString = "Thai"
-        
-        // trying to get rid of the white inset in the cell separator
-        self.tableView.layoutMargins = UIEdgeInsetsZero
         
         doSearchBasic()
     }
@@ -60,6 +58,17 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 
         cell.business = businesses[indexPath.row]
 
+        // gets rid of white margin on the left hand side
+        if (cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:"))){
+            cell.preservesSuperviewLayoutMargins = false
+        }
+        if (cell.respondsToSelector(Selector("setSeparatorInset:"))){
+            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }
+        if (cell.respondsToSelector(Selector("setLayoutMargins:"))){
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+        
         return cell
     }
     

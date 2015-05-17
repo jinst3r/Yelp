@@ -18,13 +18,11 @@ enum FiltersRowIdentifier : String {
     case SortBy = "Sort By"
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, DropDownCellDelegate {
 
     var arrayForBool : NSMutableArray = NSMutableArray()
     
-    
     @IBOutlet weak var tableView: UITableView!
-    
     weak var delegate: FiltersViewControllerDelegate?
     
     let tableStructure: [[FiltersRowIdentifier]] = [[.OfferingADeal], [.Distance], [.SortBy]]
@@ -62,22 +60,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         
         // trying to get rid of the white inset in the cell separator
-        self.tableView.layoutMargins = UIEdgeInsetsZero
-        
     }
     
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return tableStructure.count
-    }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return " "
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
     
     @IBAction func onCancelButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -99,36 +90,73 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
+
     
-//    func numberOfSectionsInTableView(tableView: UITableView?) -> Int {
-//        return 4
-//    }
     
+    // sections
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return tableStructure.count
+    }
+    
+    // headers
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let titles = ["Offering a Deal", "Distance", "Sort By"]
+        return titles[section]
+    }
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    // rows
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
+    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return categories.count
         return tableStructure[section].count
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
 
-        let filterIdentifier = tableStructure[indexPath.section][indexPath.row]
-        cell.filterRowIdentifier = filterIdentifier
-//        cell.onSwitch.on = filterValues[filterIdentifier]!
+    // switch stuff
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+        var cell:UITableViewCell!
         
-//        cell.switchLabel.text = categories[indexPath.row]["name"]
-        cell.delegate = self
+        if indexPath.section == 0 {
+            var cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            let filterIdentifier = tableStructure[indexPath.section][indexPath.row]
+            cell.filterRowIdentifier = filterIdentifier
+//            cell.onSwitch.on = filterValues[filterIdentifier]!
+//            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.delegate = self
+//            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            return cell
         
-//        cell.onSwitch.on = switchStates[indexPath.row] ?? false
+        } else if indexPath.section == 1 || indexPath.section == 2 {
+            var cell = tableView.dequeueReusableCellWithIdentifier("DropDownCell", forIndexPath: indexPath) as! DropDownCell
+            let filterIdentifier = tableStructure[indexPath.section][indexPath.row]
+            cell.filterRowIdentifier = filterIdentifier
+            //        cell.onSwitch.on = filterValues[filterIdentifier]!
+            //        cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.delegate = self
+            //        cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            return cell
+        }
+        
         return cell
+        
     }
-    
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
 
         switchStates[indexPath.row] = value
         // how does "value" have a value
     }
+    
+    // dropdown stuff
+
+    
+    
+    
     
     // inspired by https://github.com/fawazbabu/Accordion_Menu
 //    func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {

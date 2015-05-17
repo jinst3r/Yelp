@@ -124,7 +124,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="Nkv-9s-FHF">
-                        <barButtonItem key="leftBarButtonItem" title="  Filters  " id="vWr-k8-hpg">
+                        <barButtonItem key="leftBarButtonItem" id="vWr-k8-hpg">
                             <connections>
                                 <segue destination="pbP-FN-POR" kind="presentation" id="WTW-0M-27Q"/>
                             </connections>
@@ -181,6 +181,43 @@
                                         <connections>
                                             <outlet property="onSwitch" destination="ofE-VY-dnc" id="52v-lV-Bzh"/>
                                             <outlet property="switchLabel" destination="Q5r-CR-Gnq" id="RM3-Y2-fWV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DropDownCell" id="DDL-AP-4eW" customClass="DropDownCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DDL-AP-4eW" id="3My-1e-m00">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEU-pO-keO">
+                                                    <rect key="frame" x="540" y="38" width="46" height="30"/>
+                                                    <state key="normal" title="Button">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOd-bU-MNW">
+                                                    <rect key="frame" x="14" y="42" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xOd-bU-MNW" firstAttribute="leading" secondItem="3My-1e-m00" secondAttribute="leading" constant="14" id="0lt-qN-zcF"/>
+                                                <constraint firstAttribute="centerY" secondItem="vEU-pO-keO" secondAttribute="centerY" id="3nD-vI-Vb2"/>
+                                                <constraint firstAttribute="centerY" secondItem="xOd-bU-MNW" secondAttribute="centerY" id="FNJ-Mt-Xm6"/>
+                                                <constraint firstAttribute="trailing" secondItem="vEU-pO-keO" secondAttribute="trailing" constant="14" id="dxd-pn-9Xn"/>
+                                                <constraint firstAttribute="centerX" secondItem="vEU-pO-keO" secondAttribute="centerX" id="jPX-LT-NIp"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="jPX-LT-NIp"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dropDownButton" destination="vEU-pO-keO" id="PA3-T6-9Y2"/>
+                                            <outlet property="dropDownLabel" destination="xOd-bU-MNW" id="lMr-d6-ptw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

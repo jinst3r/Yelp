@@ -33,7 +33,7 @@ class BusinessCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        thumbImageView.layer.cornerRadius = 3
+        thumbImageView.layer.cornerRadius = 4
         thumbImageView.clipsToBounds = true
 
 //        nameLabel.preferredMaxLayoutWidth = nameLabel.frame.size.width
@@ -42,6 +42,10 @@ class BusinessCell: UITableViewCell {
         dispatch_async(dispatch_get_main_queue()) {
             self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width
             self.addressLabel.preferredMaxLayoutWidth = self.addressLabel.frame.size.width
+            
+            // each cell have zero margin to left edge? doesn't seem to work
+            self.preservesSuperviewLayoutMargins = false
+            self.layoutMargins = UIEdgeInsetsZero
         }
     }
     
