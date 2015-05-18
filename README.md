@@ -36,4 +36,4 @@ Time spent: `25`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![Video Walkthrough](https://github.com/jinst3r/Yelp/blob/master/walkthroughvideo1.gif)
