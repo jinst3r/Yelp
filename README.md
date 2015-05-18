@@ -2,7 +2,7 @@
 
 This is a Yelp search app using the [Yelp API](http://developer.rottentomatoes.com/docs/read/JSON).
 
-Time spent: `21`
+Time spent: `25`
 
 ### Features
 
@@ -71,8 +71,4 @@ Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: N
 Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
 
     for business in businesses {
-        println(business.name!)
-        println(business.address!)
-    }
-}
-```
+
