@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol FiltersViewControllerDelegate {
-    optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
+    optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject], didUpdateDeal deal: Bool)
 }
 
 enum FiltersRowIdentifier : String {
@@ -19,14 +19,15 @@ enum FiltersRowIdentifier : String {
     case Categories = "Categories"
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, DropDownCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, DropDownCellDelegate, OfferCellDelegate {
 
-    var arrayForBool : NSMutableArray = NSMutableArray()
+//    var arrayForBool : NSMutableArray = NSMutableArray()
     var searchSettings = SearchSettings()
     var businesses: [Business]!
     
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
+    var offerState = Bool()
     
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -56,7 +57,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        arrayForBool = ["0","0"]
+//        arrayForBool = ["0","0"]
         
         currentFilters = currentFilters ?? SearchSettings()
         categories = yelpCategories()
@@ -80,6 +81,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         //this is being sent to...
         var filters = [String : AnyObject]()
+        var deal: Bool = offerState
         
         var selectedCategories = [String]()
         for (row,isSelected) in switchStates {
@@ -92,7 +94,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             filters["categories"] = selectedCategories
         }
         println(selectedCategories)
-        delegate?.filtersViewController?(self, didUpdateFilters: filters)
+        delegate?.filtersViewController?(self, didUpdateFilters: filters, didUpdateDeal: deal)
     }
 
     
@@ -133,13 +135,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         var cell:UITableViewCell!
         
         if indexPath.section == 0 {
-            var cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("OfferCell", forIndexPath: indexPath) as! OfferCell
             let filterIdentifier = tableStructure[indexPath.section][indexPath.row]
             cell.filterRowIdentifier = filterIdentifier
 //            cell.onSwitch.on = filterValues[filterIdentifier]!
-//            cell.switchLabel.text = categories[indexPath.row]["name"]
+//            cell.offerLabel.text = "Offering a Deal"
             cell.delegate = self
-            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            cell.offerButton.on = offerState ?? false
             return cell
         
         } else if indexPath.section == 1 || indexPath.section == 2 {
@@ -171,6 +173,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         switchStates[indexPath.row] = value
     }
 
+    func offerCell(offerCell: OfferCell, didChangeValue value: Bool) {
+        let indexPath = tableView.indexPathForCell(offerCell)!
+        
+        offerState = value
+    }
+    
     // inspired by https://github.com/fawazbabu/Accordion_Menu
 //    func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
 //        println("tapping! holler")

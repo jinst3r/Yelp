@@ -84,15 +84,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
     }
 
-    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
+    func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject], didUpdateDeal deal: Bool) {
 
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 
         // ...here
         var categories = filters["categories"] as? [String]
+        var offeringDeal = deal
         
         // pass in the other search settings here. sort and deals
-        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: searchSettings.sortArray[searchSettings.SortBy!], categories: categories, deals: offeringDeal) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
@@ -125,11 +126,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             self.tableView.reloadData()
             // why doesn't it go to the top of the search results?
             
-        
-            for business in businesses {
-                println(business.name!)
-                println(business.address!)
-            }
+
+            println(self.searchSettings.searchString)
+            println(self.searchSettings.SortBy)
+            println(self.searchSettings.Categories)
+            println(self.searchSettings.OfferingADeal)
+            
+//            for business in businesses {
+//                println(business.name!)
+//                println(business.address!)
+//            }
         }
         MBProgressHUD.hideHUDForView(self.view, animated: true)
     }

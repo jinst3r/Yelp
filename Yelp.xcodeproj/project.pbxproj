@@ -21,6 +21,7 @@
 		D274392D1B091470005AFD66 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274392C1B091470005AFD66 /* DropDownCell.swift */; };
 		D278CD371B08019900D45C70 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D281ADCF1B01DEDA00FDF816 /* BusinessCell.swift */; };
 		D278CD391B0809AC00D45C70 /* SearchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D278CD381B0809AC00D45C70 /* SearchSettings.swift */; };
+		D28082E91B096A39005E4907 /* OfferCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28082E81B096A39005E4907 /* OfferCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		D20D10031B07E3D700172D23 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		D274392C1B091470005AFD66 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		D278CD381B0809AC00D45C70 /* SearchSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSettings.swift; sourceTree = "<group>"; };
+		D28082E81B096A39005E4907 /* OfferCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferCell.swift; sourceTree = "<group>"; };
 		D281ADCF1B01DEDA00FDF816 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +180,7 @@
 				D281ADCF1B01DEDA00FDF816 /* BusinessCell.swift */,
 				D20D10011B07DF9000172D23 /* SwitchCell.swift */,
 				D274392C1B091470005AFD66 /* DropDownCell.swift */,
+				D28082E81B096A39005E4907 /* OfferCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			files = (
 				D278CD371B08019900D45C70 /* BusinessCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
+				D28082E91B096A39005E4907 /* OfferCell.swift in Sources */,
 				D20D10041B07E3D700172D23 /* FiltersViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
 				D274392D1B091470005AFD66 /* DropDownCell.swift in Sources */,

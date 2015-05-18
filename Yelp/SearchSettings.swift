@@ -16,7 +16,7 @@ class SearchSettings {
 //    var SortBy: YelpSortMode?
     var Distance: Int?
     var SortBy: Int? = 0
-    var Categories: [String]? = ["asianfusion"]
+    var Categories: [String]?
 // that is confusing
     var categories: [String]?
 
