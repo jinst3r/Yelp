@@ -17,8 +17,6 @@ class OfferCell: UITableViewCell {
 
     @IBOutlet weak var offerLabel: UILabel!
     @IBOutlet weak var offerButton: UISwitch!
-    @IBAction func offerButtonChanged(sender: UISwitch) {
-    }
     
     weak var delegate: OfferCellDelegate?
     
@@ -30,6 +28,8 @@ class OfferCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        offerButton.addTarget(self, action: "offerValueChanged", forControlEvents: UIControlEvents.ValueChanged)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -38,7 +38,7 @@ class OfferCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func offerButtonChanged() {
+    func offerValueChanged() {
         delegate?.offerCell?(self, didChangeValue: offerButton.on)
     }
 }

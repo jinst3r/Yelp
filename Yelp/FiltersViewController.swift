@@ -27,7 +27,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
-    var offerState = Bool()
+    var offerState = [Int:Bool]()
     
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: FiltersViewControllerDelegate?
@@ -81,8 +81,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         //this is being sent to...
         var filters = [String : AnyObject]()
-        var deal: Bool = offerState
-        
+        var deal: Bool = offerState[0]!
+
         var selectedCategories = [String]()
         for (row,isSelected) in switchStates {
             if isSelected {
@@ -141,7 +141,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 //            cell.onSwitch.on = filterValues[filterIdentifier]!
 //            cell.offerLabel.text = "Offering a Deal"
             cell.delegate = self
-            cell.offerButton.on = offerState ?? false
+            cell.offerButton.on = offerState[indexPath.row] ?? false
+            println("offerState ?? false")
             return cell
         
         } else if indexPath.section == 1 || indexPath.section == 2 {
@@ -171,12 +172,14 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let indexPath = tableView.indexPathForCell(switchCell)!
 
         switchStates[indexPath.row] = value
+        println("func switchcell")
     }
 
     func offerCell(offerCell: OfferCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(offerCell)!
         
-        offerState = value
+        offerState[indexPath.row] = value
+        println("func offercell")
     }
     
     // inspired by https://github.com/fawazbabu/Accordion_Menu
