@@ -2,7 +2,7 @@
 
 This is a Yelp search app using the [Yelp API](http://developer.rottentomatoes.com/docs/read/JSON).
 
-Time spent: `18`
+Time spent: `19`
 
 ### Features
 
@@ -32,7 +32,7 @@ Time spent: `18`
 
 - [ ] Other Stuff
    - [X] Remove white margin on the cell divider line
-   - [ ] ???
+   - [X] Scroll to top after search
 
 ### Walkthrough
 

@@ -40,8 +40,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         navigationItem.leftBarButtonItem?.image = UIImage(named: "list-fat-7")
 //        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Helvetica Neue", size: 16)!], forState: UIControlState.Normal)
 
-        
-//        searchSettings.searchString = "Korean"
         doSearchBasic()
     }
 
@@ -89,7 +87,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
 
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        
+
         // ...here
         var categories = filters["categories"] as? [String]
         
@@ -100,6 +98,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         MBProgressHUD.hideHUDForView(self.view, animated: true)
+        scrollToTop()
     }
     
     func doSearchBasic() {
@@ -120,6 +119,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func doSearchAdvanced() {
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         Business.searchWithTerm(searchSettings.searchString!, sort: searchSettings.sortArray[searchSettings.SortBy!], categories: searchSettings.categories, deals: searchSettings.OfferingADeal) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
@@ -131,10 +131,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 println(business.address!)
             }
         }
-        
         MBProgressHUD.hideHUDForView(self.view, animated: true)
     }
     
+    func scrollToTop() {
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        
+    }
 }
 
 extension BusinessesViewController: UISearchBarDelegate {
@@ -157,6 +161,7 @@ extension BusinessesViewController: UISearchBarDelegate {
         searchSettings.searchString = searchBar.text
         searchBar.resignFirstResponder()
         doSearchAdvanced()
+        scrollToTop()
     }
 }
 
