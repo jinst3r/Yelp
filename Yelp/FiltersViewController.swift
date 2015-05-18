@@ -21,9 +21,20 @@ enum FiltersRowIdentifier : String {
 
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, DropDownCellDelegate, OfferCellDelegate {
 
-//    var arrayForBool : NSMutableArray = NSMutableArray()
     var searchSettings = SearchSettings()
     var businesses: [Business]!
+    
+    // for drop down
+    // excuse the janky code... 45 min before due
+    let expandArrayOne = [1,5]
+    var expandKeyOne = 0
+    var clickCountOne = 0
+    var selectedOne = Int()
+    
+    let expandArrayTwo = [1,3]
+    var expandKeyTwo = 0
+    var clickCountTwo = 0
+    var selectedTwo = Int()
     
     var categories: [[String:String]]!
     var switchStates = [Int:Bool]()
@@ -64,6 +75,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        offerState = [0: false]
     }
     
     override func didReceiveMemoryWarning() {
@@ -110,24 +123,101 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         return titles[section]
     }
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 55
     }
     
     // rows
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        return 40
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println("didSelectRowAtIndexPath was called")
+        if (indexPath.section == 1) {
+            clickCountOne += 1
+            expandKeyOne = clickCountOne % 2
+            println(expandArrayOne[expandKeyOne])
+            println(indexPath.row)
+            println(indexPath.section)
+            selectedOne = indexPath.row
+            self.tableView.reloadData()
+            //tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        } else if (indexPath.section == 2) {
+            clickCountTwo += 1
+            expandKeyTwo = clickCountTwo % 2
+            println(expandArrayTwo[expandKeyTwo])
+            println(indexPath.row)
+            println(indexPath.section)
+            selectedTwo = indexPath.row
+            self.tableView.reloadData()
+        }
+        //        var cell = tableView.cellForRowAtIndexPath(indexPath) as! DropDownCell
+        //        switch selectedIndexPath {
+        //        case nil:
+        //            selectedIndexPath = indexPath
+        //        default:
+        //            if selectedIndexPath! == indexPath {
+        //                selectedIndexPath = nil
+        //            } else {
+        //                selectedIndexPath = indexPath
+        //            }
+        //        }
+//            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//            tableView.reloadRowsAtIndexPaths(1.1, withRowAnimation: UITableViewRowAnimation.Automatic)
+            //
+        //        if indexPath.section == 2 {
+        //
+        
+        //            var tableView.numberOfRowsInSection(2) = 4
+        //            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        //        }
+//            func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//                //        return categories.count
+//                //        return tableStructure[section].count
+//                expandKey = 1
+//                
+//                if section == 3 {
+//                    println(yelpCategories().count)
+//                    return yelpCategories().count
+//                } else if section == 1 {
+//                    return expandArray[expandKey]
+//                } else if section == 2 {
+//                    return expandArray[expandKey]
+//                } else {
+//                    return 1
+//                }
+//                
+//            }
+    }
+
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return categories.count
 //        return tableStructure[section].count
+        
         if section == 3 {
             println(yelpCategories().count)
             return yelpCategories().count
+        } else if section == 1 {
+            return expandArrayOne[expandKeyOne]
+        } else if section == 2 {
+            return expandArrayTwo[expandKeyTwo]
         } else {
             return 1
         }
         
     }
+
+//    func oneWasTapped(recognizer: UITapGestureRecognizer) {
+//        println("one was tapped")
+//        println(recognizer.view?.tag)
+//        
+//    }
+//
+//    func twoWasTapped(recognizer: UITapGestureRecognizer) {
+//        println("two was tapped")
+//        println(recognizer.view?.tag)
+//    }
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -142,17 +232,30 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 //            cell.offerLabel.text = "Offering a Deal"
             cell.delegate = self
             cell.offerButton.on = offerState[indexPath.row] ?? false
+            println(offerState)
             println("offerState ?? false")
             return cell
         
-        } else if indexPath.section == 1 || indexPath.section == 2 {
+        } else if indexPath.section == 1 {
             var cell = tableView.dequeueReusableCellWithIdentifier("DropDownCell", forIndexPath: indexPath) as! DropDownCell
-            let filterIdentifier = tableStructure[indexPath.section][indexPath.row]
-            cell.filterRowIdentifier = filterIdentifier
-            //        cell.onSwitch.on = filterValues[filterIdentifier]!
-            //        cell.switchLabel.text = categories[indexPath.row]["name"]
-            cell.delegate = self
-            //        cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            let distanceLabels = ["Auto","0.3 miles", "1 mile", "5 miles", "20 miles"]
+            cell.dropDownLabel.text = distanceLabels[indexPath.row]
+            if indexPath.row == 0 {
+                cell.dropDownButton.setImage(UIImage(named: "circle-tick-7"), forState: UIControlState.Normal)
+            } else {
+                cell.dropDownButton.setImage(UIImage(named: "dot-more-7"), forState: UIControlState.Normal)
+            }
+            return cell
+
+        } else if indexPath.section == 2 {
+            var cell = tableView.dequeueReusableCellWithIdentifier("DropDownCell", forIndexPath: indexPath) as! DropDownCell
+            let sortByLabels = ["Best Match", "Distance", "Rating"]
+            cell.dropDownLabel.text = sortByLabels[indexPath.row]
+            if indexPath.row == 0 {
+                cell.dropDownButton.setImage(UIImage(named: "circle-tick-7"), forState: UIControlState.Normal)
+            } else {
+                cell.dropDownButton.setImage(UIImage(named: "dot-more-7"), forState: UIControlState.Normal)
+            }
             return cell
             
         } else if indexPath.section == 3 {
@@ -168,6 +271,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
+    
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
 
@@ -180,6 +284,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         offerState[indexPath.row] = value
         println("func offercell")
+        println(offerState)
     }
     
     // inspired by https://github.com/fawazbabu/Accordion_Menu

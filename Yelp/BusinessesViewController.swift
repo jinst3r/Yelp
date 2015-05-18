@@ -87,7 +87,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject], didUpdateDeal deal: Bool) {
 
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-
         // ...here
         var categories = filters["categories"] as? [String]
         var offeringDeal = deal
@@ -96,9 +95,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         Business.searchWithTerm("Restaurants", sort: searchSettings.sortArray[searchSettings.SortBy!], categories: categories, deals: offeringDeal) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
         
-        MBProgressHUD.hideHUDForView(self.view, animated: true)
+        
         scrollToTop()
     }
     
@@ -136,8 +136,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 //                println(business.name!)
 //                println(business.address!)
 //            }
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
         }
-        MBProgressHUD.hideHUDForView(self.view, animated: true)
+        
     }
     
     func scrollToTop() {

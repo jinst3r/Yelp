@@ -37,8 +37,7 @@ class DropDownCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func dropDownValueChanged() {
-        // add code here
+    func dropDownValueTouched() {
     }
 
 }
